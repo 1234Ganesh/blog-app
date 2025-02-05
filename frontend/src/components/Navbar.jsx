@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
@@ -5,6 +6,9 @@ import { FaBars } from "react-icons/fa6";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { BACKEND_URL } from "../utils/backendUrl";
+import { MdCancel } from "react-icons/md";
+import { BiLogOut } from "react-icons/bi";
+import { IoMdLogIn } from "react-icons/io";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -48,16 +52,17 @@ const Navbar = () => {
               <Link to="/contact">CONTACT</Link>
             </ul>
           </div>
-          <div
-            onClick={() => setShow(!show)}
-            className="sm-flex md:hidden relative"
-          >
-            <FaBars size={24} />
-          </div>
-          <div className="space-x-2 hidden md:flex">
+
+          <div className="space-x-2 flex items-center">
             {isAutheticated && profile?.role === "admin" ? (
               <Link to="/dashboard">
-                <button className="btn bg-blue-500 hover:bg-blue-600 text-white">
+                <button
+                  className="btn bg-blue-500 hover:bg-black 
+                text-white hidden md:flex"
+                >
+                  DASHBOARD
+                </button>
+                <button className="text-xs bg-blue-500  rounded-md px-2 py-2 hover:bg-black sm:hidden text-white">
                   DASHBOARD
                 </button>
               </Link>
@@ -66,21 +71,37 @@ const Navbar = () => {
             )}
             {isAutheticated ? (
               <div>
+                <BiLogOut
+                  size={20}
+                  className="sm:hidden"
+                  onClick={handlelogout}
+                />
                 <button
-                  className="btn bg-red-500 hover:bg-blue-600 text-white"
+                  className="btn bg-red-500 hover:bg-blue-600 text-white hidden md:flex"
                   onClick={handlelogout}
                 >
                   LOGOUT
                 </button>
               </div>
             ) : (
-              <Link to="/login">
-                <button className="btn bg-red-500 hover:bg-blue-600 text-white">
-                  LOGIN
-                </button>
-              </Link>
+              <div>
+                <Link to="/login">
+                  <button className="btn bg-red-500 hover:bg-blue-600 text-white">
+                    LOGIN
+                  </button>
+                </Link>
+                <Link to="/login" className="sm:hidden">
+                  <IoMdLogIn size={20} />
+                </Link>
+              </div>
             )}
           </div>
+        </div>
+        <div
+          onClick={() => setShow(!show)}
+          className="ml-5 pt-2 sm-flex md:hidden relative"
+        >
+          <FaBars size={15} />
         </div>
         {show && (
           <ul className="flex flex-col p-4">
@@ -90,6 +111,14 @@ const Navbar = () => {
             <Link to="/about">ABOUT</Link>
             <Link to="/contact">CONTACT</Link>
           </ul>
+        )}
+        {show && (
+          <div
+            onClick={() => setShow(!show)}
+            className="ml-12 sm-flex md:hidden relative flex justify-end"
+          >
+            <MdCancel size={20} />
+          </div>
         )}
       </nav>
     </>
