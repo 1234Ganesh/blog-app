@@ -103,6 +103,7 @@ exports.login = async (req, res) => {
       .cookie("token", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
         httpsOnly: false,
+        secure:true,
         sameSite: "none",
       })
       .json({
