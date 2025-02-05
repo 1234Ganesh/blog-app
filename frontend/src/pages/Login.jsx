@@ -57,7 +57,7 @@ const Login = () => {
         <div className="font-bold text-xl text-center mb-6">
           GK <span className="text-blue-500">Blog</span>
         </div>
-        <h1 className="text-black text-xl font-semibold">Register</h1>
+        <h1 className="text-black text-xl font-semibold">Login</h1>
         <form onSubmit={submitHandler}>
           <div className="mt-4">
             <input
