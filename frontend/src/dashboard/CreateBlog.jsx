@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { useState } from "react";
 
@@ -18,6 +19,7 @@ const CreateBlog = () => {
     formData.append("title", input.title);
     formData.append("category", input.category);
     formData.append("about", input.about);
+
     if (input.file) {
       formData.append("file", input.file);
     }
@@ -33,9 +35,13 @@ const CreateBlog = () => {
           withCredentials: true,
         }
       );
+      setInput({
+        title: "",
+        about: "",
+        category: "",
+      });
 
       toast.success(data.message);
-      setInput({ title: "", category: "", about: "", file: null });
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
