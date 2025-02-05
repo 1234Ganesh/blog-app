@@ -1,3 +1,4 @@
+
 const Blog = require("../model/blog.model");
 const mongoose = require("mongoose");
 
@@ -16,6 +17,11 @@ exports.createBlog = async (req, res) => {
         success: false,
       });
     }
+    if (about.length > 50) {
+      return res.status(400).json({
+        message: "About words min 50 words",
+      });
+    }
 
     const adminId = req.id;
     const adminName = req.user.name;
@@ -26,8 +32,17 @@ exports.createBlog = async (req, res) => {
     blogImage = "";
     if (file) {
       const fileUri = getDataUri(file);
-      const cloudeResponse = await cloudinary.uploader.upload(fileUri.content);
-      blogImage = cloudeResponse.secure_url;
+      console.log("File URI:", fileUri); // Debug log
+      try {
+        const cloudeResponse = await cloudinary.uploader.upload(
+          fileUri.content
+        );
+        console.log("Cloudinary Response:", cloudeResponse); // Debug log
+        blogImage = cloudeResponse.secure_url;
+      } catch (err) {
+        console.error("Cloudinary Upload Error:", err);
+        return res.status(500).json({ message: "File upload failed" });
+      }
     }
 
     const blog = await Blog.create({
