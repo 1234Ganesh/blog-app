@@ -8,7 +8,7 @@ const blogSchema = mongoose.Schema({
 
   blogImage: {
     type: String,
-    required: true,
+    required: false,
   },
 
   category: {
