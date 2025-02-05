@@ -18,7 +18,6 @@ const CreateBlog = () => {
     formData.append("title", input.title);
     formData.append("category", input.category);
     formData.append("about", input.about);
-    formData.append("blogImage", input.blogImage);
     if (input.file) {
       formData.append("file", input.file);
     }
