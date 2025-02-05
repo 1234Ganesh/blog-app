@@ -17,7 +17,7 @@ exports.createBlog = async (req, res) => {
         success: false,
       });
     }
-    if (about.length > 50) {
+    if (about.length < 50) {
       return res.status(400).json({
         message: "About words min 50 words",
       });
