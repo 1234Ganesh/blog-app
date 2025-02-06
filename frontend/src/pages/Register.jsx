@@ -41,7 +41,7 @@ const Register = () => {
           withCredentials: true,
         }
       );
-      console.log(data.success);
+      console.log(data);
       toast.success(data.message);
 
       navigate("/login");
@@ -54,6 +54,7 @@ const Register = () => {
         education: "",
       });
     } catch (error) {
+      console.log(error)
       toast.error(error.response.data.message);
     }
   };
