@@ -40,6 +40,7 @@ const CreateBlog = () => {
         about: "",
         category: "",
       });
+      console.log(data)
 
       toast.success(data.message);
     } catch (error) {
