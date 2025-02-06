@@ -103,8 +103,9 @@ exports.login = async (req, res) => {
       .status(200)
       .cookie("token", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
-        httpsOnly: false,
-        sameSite: "none",
+        httpOnly: false, 
+      secure: true, 
+     sameSite: "none",
       })
       .json({
         message: `Welcome back ${user.name}`,
